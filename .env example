@@ -1,0 +1,2 @@
+db_driver=mongodb
+db_connection_string='mongodb://root:roott@localhost:27017/quotes_app?authSource=admin'
