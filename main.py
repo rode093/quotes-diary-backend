@@ -2,7 +2,7 @@ from lib.mongodb import MongoDB
 from models.quotes import Quotes
 from fastapi import FastAPI
 from dotenv import dotenv_values
-
+from fastapi.middleware.cors import CORSMiddleware
 from routes import quotes
 
 config = dotenv_values(".env")
@@ -12,5 +12,14 @@ if(config):
 dbConnection= MongoDB(config)
 
 app = FastAPI()
+#configure cors middleware
+origins = [
+    "*",
+]
+app.add_middleware(CORSMiddleware, allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],)
 
-app.include_router(quotes.router)
+#setup roputer
+app.include_router(quotes.router, prefix="/quotes")
