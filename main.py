@@ -1,9 +1,8 @@
 from lib.mongodb import MongoDB
-from models.quotes import Quotes
 from fastapi import FastAPI
 from dotenv import dotenv_values
 from fastapi.middleware.cors import CORSMiddleware
-from routes import quotes
+from controllers import quotes
 
 config = dotenv_values(".env")
 if(config):

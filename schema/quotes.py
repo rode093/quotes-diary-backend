@@ -2,9 +2,9 @@ from enum import unique
 from math import frexp
 from typing_extensions import Required
 from urllib import request
-
+from models.quote import Quote
 from mongoengine import *
-
+from lib.slug import *
 class Quotes(DynamicDocument):
     slug=StringField(max_length=48, required=True, unique=True)
     text=StringField(max_length=512, required=True)
@@ -18,5 +18,14 @@ class Quotes(DynamicDocument):
             "text": self.text,
             "author": self.author if hasattr(self, "author") else None
         }
+    def create(self):
         
-  
+        self.generateSlug()
+     
+        self.save()
+        return self
+    
+    def generateSlug(self):
+        self.slug = generateSlug(self.text)
+        
+        
